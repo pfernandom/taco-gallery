@@ -1,13 +1,10 @@
 var AWS = require("aws-sdk");
 var uuid = require('uuid');
-
-AWS.config.update({
-  region: "us-west-1"
-});
+var dynamodb = require('serverless-dynamodb-client');
 
 class TacoGallery{
 	constructor(){
-		this.db = new AWS.DynamoDB.DocumentClient();
+		this.db = dynamodb.doc;
 
 	}
 	

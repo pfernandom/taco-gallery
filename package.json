@@ -4,7 +4,11 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "docker pull lambci/lambda",
+    "setup": "./node_modules/.bin/sls config credentials --provider aws --key KEY --secret SECRET",
+    "start": "./node_modules/.bin/sls offline start -r us-east-1 --noTimeout",
+    "install:dynamodb": "./node_modules/.bin/sls dynamodb install",
+    "start:dynamodb": "./node_modules/.bin/sls dynamodb start -p 8000  --migrate true"
   },
   "author": "",
   "license": "ISC",
@@ -15,9 +19,13 @@
     "babel-preset-es2015": "^6.22.0",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
+    "serverless-dynamodb-client": "0.0.2",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "dynalite": "^1.1.1"
+    "dynalite": "^1.1.1",
+    "serverless-dynamodb-local": "^0.2.19",
+    "serverless-offline": "^3.10.2",
+    "serverless-plugin-simulate": "0.0.10"
   }
 }
