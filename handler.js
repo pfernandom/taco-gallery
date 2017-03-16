@@ -1,5 +1,8 @@
 import TacoGallery from './TacoGallery'
 
+const isString = (obj => typeof obj === 'string' || obj instanceof String )
+
+
 module.exports.hello = (event, context, callback) => {
 	var tacoGallery = new TacoGallery();
 	
@@ -13,7 +16,8 @@ module.exports.hello = (event, context, callback) => {
 
 module.exports.saveTaco = (event, context, callback) => {
 	var tacoGallery = new TacoGallery();
-	var params = JSON.parse(event.body);
+	console.log(event)
+	var params = isString(event) ? JSON.parse(event.body): event.body;
 	console.log(params);
 	
 	tacoGallery.saveTaco(params.name, params.description).then(data => {

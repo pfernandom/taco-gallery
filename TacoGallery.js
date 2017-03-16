@@ -16,17 +16,20 @@ class TacoGallery{
 	}
 	
 	saveTaco(tacoName,tacoDescription){
-
+		let id = uuid.v4();
 		var params = {
 			TableName:'TacoGallery',
 			Item:{
-				"id": uuid.v4(),
+				"id": id,
 				"name": tacoName,
 				"description": tacoDescription
 			}
 		};
 		
-		return this.db.put(params).promise();
+		return this.db.put(params).promise().then(data => {
+			data = Object.assign({id:id},data);
+			return data;
+		});
 	}
 }
 
