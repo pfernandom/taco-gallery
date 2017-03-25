@@ -13,19 +13,26 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.20.0",
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-preset-es2015": "^6.22.0",
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
+    "jsonschema": "^1.1.1",
     "serverless-dynamodb-client": "0.0.2",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "aws-sdk": "^2.20.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "chai": "^3.5.0",
     "dynalite": "^1.1.1",
+    "jsonschema": "^1.1.1",
+    "mocha": "^3.2.0",
     "serverless-dynamodb-local": "^0.2.19",
     "serverless-offline": "^3.10.2",
-    "serverless-plugin-simulate": "0.0.10"
+    "serverless-plugin-simulate": "0.0.10",
+    "serverless-webpack": "^1.0.0-rc.4",
+    "webpack-node-externals": "^1.5.4"
   }
 }

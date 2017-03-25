@@ -2,7 +2,9 @@ service: taco-gallery
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs6.10
+  region: us-east-2
+  stage: dev
 
 
 resources:
@@ -30,17 +32,28 @@ resources:
         TableName: TacoGallery
 
 functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
   saveTaco:
     handler: handler.saveTaco
     events:
       - http:
           path: taco
           method: post
+
+
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-webpack
 
 custom:
+  webpackIncludeModules:
+    packagePath: './package.json'
   serverless-offline:
     babelOptions:
       presets: ["es2015"]
