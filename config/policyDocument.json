@@ -8,7 +8,7 @@
                 "execute-api:Invoke"
             ],
             "Resource": [
-                "arn:aws:execute-api:<regionId>:<accountId>:<apiId>/<stage>/<method>/<resourcePath>"
+                "arn:aws:execute-api:*"
             ]
         }
     ]

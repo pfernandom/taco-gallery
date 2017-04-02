@@ -1,24 +1,12 @@
 'use strict';
 
-var policyDocument = require('./policyDocument.json');
-
-
-// static setup that can be done at load-time
-
+var policyDocument = require('./config/policyDocument.json');
 var ACCESS_TOKEN_LENGTH = 16; // (apparent) length of an Autho0 access_token
-
-// Lambda now supports environment variables - http://docs.aws.amazon.com/lambda/latest/dg/tutorial-env_cli.html
-// a .env file can be used as a development convenience. Real environment variables can be used in deployment and
-// will override anything loaded by dotenv.
-require('dotenv').config();
-
-var Promise = require('bluebird');
 
 var AWS = require('aws-sdk');
 if ( process.env.AWS_REGION ) {
 	AWS.config.update( { region: process.env.AWS_REGION } );
 }
-
 
 var AuthenticationClient = require('auth0').AuthenticationClient;
 
@@ -34,7 +22,6 @@ var auth0 = new AuthenticationClient( {
 	domain    : process.env.AUTH0_DOMAIN,
 	clientId  : process.env.AUTH0_CLIENTID
 } );
-
 
 // extract and return the Bearer Token from the Lambda event parameters
 var getToken = function( params ) {
@@ -71,6 +58,7 @@ var saveUserInfo = function( userInfo ) {
 	if ( ! userInfo ) throw new Error( 'saveUserInfo - expected userInfo parameter' );
 	if ( ! userInfo.user_id ) throw new Error( 'saveUserInfo - expected userInfo.user_id parameter' );
 	console.log(userInfo);
+	//Use this space if you want to save the user
 	return userInfo;
 
 }

@@ -77,7 +77,6 @@ module.exports.getTaco = (event, context, callback) => {
 
 // Lambda function index.handler - thin wrapper around lib.authenticate
 module.exports.auth = function( event, context ) {
-	console.log("Staaart");
 	try{
 		lib.authenticate( event )
 			.then( context.succeed )
