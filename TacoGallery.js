@@ -31,6 +31,20 @@
 				});
 			});
 		}
+		getTaco(id){
+			var params = {
+				TableName:'TacoGallery',
+				KeyConditionExpression: "#id = :idValue",
+				ExpressionAttributeNames:{
+					"#id": "id"
+				},
+				ExpressionAttributeValues: {
+					":idValue":id
+				}
+			};
+
+			return this.db.query(params).promise();
+		}
 	}
 
 	module.exports = TacoGallery;

@@ -5,7 +5,11 @@ provider:
   runtime: nodejs6.10
   region: us-east-2
   stage: dev
-
+  environment:
+    TESTNUM: 27
+    TESTSTR: hello
+    AUTH0_DOMAIN: pfernandom.auth0.com
+    AUTH0_CLIENTID: L7YiTnpuzmfa1W9spj7fIpwXgHKzSmNX
 
 resources:
   Resources:
@@ -32,18 +36,45 @@ resources:
         TableName: TacoGallery
 
 functions:
-  hello:
+  authorizerFunc:
+      handler: handler.auth
+  helloPublic:
     handler: handler.hello
     events:
       - http:
-          path: hello
+          path: helloPublic
           method: get
+          cors: true
+  helloIAM:
+      handler: handler.hello
+      events:
+        - http:
+            path: helloIAM
+            method: get
+            cors: true
+            authorizer: authorizerFunc
+  helloAuth0:
+      handler: handler.hello
+      events:
+        - http:
+            path: helloAuth0
+            method: get
+            cors: true
+            authorizer: authorizerFunc
+  getTaco:
+    handler: handler.getTaco
+    events:
+      - http:
+          path: taco/{id}
+          method: get
+          authorizer: authorizerFunc
   saveTaco:
     handler: handler.saveTaco
     events:
       - http:
           path: taco
           method: post
+          authorizer: authorizerFunc
 
 
 plugins:
@@ -54,6 +85,9 @@ plugins:
 custom:
   webpackIncludeModules:
     packagePath: './package.json'
+  dynamodb:
+      start:
+        migrate: true
   serverless-offline:
     babelOptions:
-      presets: ["es2015"]
+      presets: ["es2015", "stage-2"]
