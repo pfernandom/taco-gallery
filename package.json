@@ -5,6 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "install:offline": "docker pull lambci/lambda",
+	"test": "mocha handler.test --compilers js:babel-core/register",
     "setup": "./node_modules/.bin/sls config credentials --provider aws --key KEY --secret SECRET",
     "start": "./node_modules/.bin/sls offline start -r us-east-1 --noTimeout --corsDisallowCredentials false",
     "install:dynamodb": "./node_modules/.bin/sls dynamodb install",
